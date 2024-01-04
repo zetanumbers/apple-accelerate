@@ -1,0 +1,17 @@
+[package]
+name = "apple-accelerate-dft"
+version = "0.1.0"
+edition = "2021"
+
+[dev-dependencies]
+paste = "1.0.14"
+rustfft = "6.1.0"
+
+[dependencies]
+apple-sys = { version = "0.2.0", features = ["Accelerate"] }
+num-complex = "0.4.4"
+
+# [profile.release]
+# lto = true
+# codegen-units = 1
+# panic = "abort"
