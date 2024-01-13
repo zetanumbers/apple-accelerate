@@ -16,7 +16,7 @@ impl<T: Scalar> Drop for DftSetup<T> {
 }
 
 impl<T: Scalar> DftSetup<T> {
-    pub fn new(len: usize, direction: Direction) -> Result<Self, NewDftSetupError> {
+    pub fn new(len: usize, direction: FftDirection) -> Result<Self, NewDftSetupError> {
         Ok(Self {
             raw: ptr::NonNull::new(unsafe {
                 T::create_interleaved_setup(
@@ -48,7 +48,7 @@ impl<T: Scalar> DftSetup<T> {
 
 #[repr(i32)]
 #[non_exhaustive]
-pub enum Direction {
+pub enum FftDirection {
     Forward = Accelerate::FFT_FORWARD,
     Inverse = Accelerate::FFT_INVERSE,
 }
