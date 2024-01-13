@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "apple-accelerate-dft"
+name = "apple-accelerate"
 version = "0.1.0"
 dependencies = [
  "apple-sys",

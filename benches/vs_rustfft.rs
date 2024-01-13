@@ -63,8 +63,7 @@ fn bench_neon_64(b: &mut Bencher, len: usize) {
 }
 
 fn bench_accelerate_32(b: &mut Bencher, len: usize) {
-    let setup =
-        apple_accelerate_dft::DftSetup::new(len, apple_accelerate_dft::Direction::Forward).unwrap();
+    let setup = apple_accelerate::DftSetup::new(len, apple_accelerate::Direction::Forward).unwrap();
 
     let mut buffer: Vec<Complex<f32>> = black_box(vec![Complex::zero(); len]);
     // Warmup
@@ -76,8 +75,7 @@ fn bench_accelerate_32(b: &mut Bencher, len: usize) {
 }
 
 fn bench_accelerate_64(b: &mut Bencher, len: usize) {
-    let setup =
-        apple_accelerate_dft::DftSetup::new(len, apple_accelerate_dft::Direction::Forward).unwrap();
+    let setup = apple_accelerate::DftSetup::new(len, apple_accelerate::Direction::Forward).unwrap();
 
     let mut buffer: Vec<Complex<f64>> = black_box(vec![Complex::zero(); len]);
     // Warmup
