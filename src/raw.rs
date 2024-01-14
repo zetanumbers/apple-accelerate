@@ -32,6 +32,15 @@ pub unsafe trait Scalar: Sized {
         c: *mut Self,
         n: Accelerate::vDSP_Length,
     );
+
+    unsafe fn dot_product(
+        a: *const Self,
+        stride_a: Accelerate::vDSP_Stride,
+        b: *const Self,
+        stride_b: Accelerate::vDSP_Stride,
+        c: *mut Self,
+        n: Accelerate::vDSP_Length,
+    );
 }
 
 unsafe impl Scalar for f32 {
@@ -59,14 +68,25 @@ unsafe impl Scalar for f32 {
     }
 
     unsafe fn distance_squared(
-            a: *const Self,
-            stride_a: Accelerate::vDSP_Stride,
-            b: *const Self,
-            stride_b: Accelerate::vDSP_Stride,
-            c: *mut Self,
-            n: Accelerate::vDSP_Length,
-        ) {
+        a: *const Self,
+        stride_a: Accelerate::vDSP_Stride,
+        b: *const Self,
+        stride_b: Accelerate::vDSP_Stride,
+        c: *mut Self,
+        n: Accelerate::vDSP_Length,
+    ) {
         Accelerate::vDSP_distancesq(a, stride_a, b, stride_b, c, n)
+    }
+
+    unsafe fn dot_product(
+        a: *const Self,
+        stride_a: Accelerate::vDSP_Stride,
+        b: *const Self,
+        stride_b: Accelerate::vDSP_Stride,
+        c: *mut Self,
+        n: Accelerate::vDSP_Length,
+    ) {
+        Accelerate::vDSP_dotpr(a, stride_a, b, stride_b, c, n)
     }
 }
 
@@ -95,13 +115,24 @@ unsafe impl Scalar for f64 {
     }
 
     unsafe fn distance_squared(
-            a: *const Self,
-            stride_a: Accelerate::vDSP_Stride,
-            b: *const Self,
-            stride_b: Accelerate::vDSP_Stride,
-            c: *mut Self,
-            n: Accelerate::vDSP_Length,
-        ) {
+        a: *const Self,
+        stride_a: Accelerate::vDSP_Stride,
+        b: *const Self,
+        stride_b: Accelerate::vDSP_Stride,
+        c: *mut Self,
+        n: Accelerate::vDSP_Length,
+    ) {
         Accelerate::vDSP_distancesqD(a, stride_a, b, stride_b, c, n)
+    }
+
+    unsafe fn dot_product(
+        a: *const Self,
+        stride_a: Accelerate::vDSP_Stride,
+        b: *const Self,
+        stride_b: Accelerate::vDSP_Stride,
+        c: *mut Self,
+        n: Accelerate::vDSP_Length,
+    ) {
+        Accelerate::vDSP_dotprD(a, stride_a, b, stride_b, c, n)
     }
 }
