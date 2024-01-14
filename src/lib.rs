@@ -28,3 +28,22 @@ pub fn distance_squared<T: raw::Scalar>(a: &[T], b: &[T]) -> T {
         out.assume_init()
     }
 }
+
+#[track_caller]
+pub fn scale<T: raw::Scalar>(a: &[T], b: T, c: &mut [T]) {
+    let n = a.len();
+    assert_eq!(
+        n,
+        c.len(),
+        "input and output slices must have equal lengths"
+    );
+    let n = n.try_into().expect("input slice length is too large");
+    unsafe { T::vector_by_scalar_mul(a.as_ptr(), 1, &b, c.as_mut_ptr(), 1, n) };
+}
+
+#[track_caller]
+pub fn scale_inplace<T: raw::Scalar>(a: &mut [T], b: T) {
+    let n = a.len().try_into().expect("input slice length is too large");
+    let a = a.as_mut_ptr();
+    unsafe { T::vector_by_scalar_mul(a, 1, &b, a, 1, n) };
+}

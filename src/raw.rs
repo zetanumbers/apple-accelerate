@@ -41,6 +41,15 @@ pub unsafe trait Scalar: Sized {
         c: *mut Self,
         n: Accelerate::vDSP_Length,
     );
+
+    unsafe fn vector_by_scalar_mul(
+        a: *const Self,
+        stride_a: Accelerate::vDSP_Stride,
+        b: *const Self,
+        c: *mut Self,
+        stride_c: Accelerate::vDSP_Stride,
+        n: Accelerate::vDSP_Length,
+    );
 }
 
 unsafe impl Scalar for f32 {
@@ -88,6 +97,17 @@ unsafe impl Scalar for f32 {
     ) {
         Accelerate::vDSP_dotpr(a, stride_a, b, stride_b, c, n)
     }
+
+    unsafe fn vector_by_scalar_mul(
+        a: *const Self,
+        stride_a: Accelerate::vDSP_Stride,
+        b: *const Self,
+        c: *mut Self,
+        stride_c: Accelerate::vDSP_Stride,
+        n: Accelerate::vDSP_Length,
+    ) {
+        Accelerate::vDSP_vsmul(a, stride_a, b, c, stride_c, n)
+    }
 }
 
 unsafe impl Scalar for f64 {
@@ -134,5 +154,16 @@ unsafe impl Scalar for f64 {
         n: Accelerate::vDSP_Length,
     ) {
         Accelerate::vDSP_dotprD(a, stride_a, b, stride_b, c, n)
+    }
+
+    unsafe fn vector_by_scalar_mul(
+        a: *const Self,
+        stride_a: Accelerate::vDSP_Stride,
+        b: *const Self,
+        c: *mut Self,
+        stride_c: Accelerate::vDSP_Stride,
+        n: Accelerate::vDSP_Length,
+    ) {
+        Accelerate::vDSP_vsmulD(a, stride_a, b, c, stride_c, n)
     }
 }
