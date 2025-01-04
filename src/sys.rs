@@ -1,5 +1,8 @@
 #![allow(non_camel_case_types, non_upper_case_globals)]
 
+#[link(name = "Accelerate", kind = "framework")]
+unsafe extern "C" {}
+
 pub type vDSP_Length = ::std::os::raw::c_ulong;
 pub type vDSP_Stride = ::std::os::raw::c_long;
 #[repr(C)]
