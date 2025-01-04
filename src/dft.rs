@@ -1,9 +1,9 @@
 use std::{marker::PhantomData, ptr};
 
-use apple_sys::Accelerate;
 use num_complex::Complex;
 
 use crate::raw::Scalar;
+use crate::sys;
 
 pub struct DftSetup<T: Scalar> {
     raw: ptr::NonNull<T::DftInterleavedSetupStruct>,
@@ -51,8 +51,8 @@ impl<T: Scalar> DftSetup<T> {
 #[repr(i32)]
 #[non_exhaustive]
 pub enum FftDirection {
-    Forward = Accelerate::FFT_FORWARD,
-    Inverse = Accelerate::FFT_INVERSE,
+    Forward = sys::FFT_FORWARD,
+    Inverse = sys::FFT_INVERSE,
 }
 
 // Errors
